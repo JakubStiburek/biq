@@ -3,14 +3,13 @@ import React from "react";
 import getSteps from "../utils/getSteps";
 import { useDispatch, useSelector } from "react-redux"
 import { valueProps } from "../interfaces/valueProps";
-import { setAmountValue } from "../redux/amountSlice";
 
-const SelectValue: React.FC<valueProps> = ({defaultValue, min, max, step, name}) => {
+const SelectValue: React.FC<valueProps> = ({defaultValue, min, max, step, name, action}) => {
   const dispatch = useDispatch();
 
-  const menuItems = getSteps(min, max, step).map((item) => <MenuItem value={item}>{item}</MenuItem>);
+  const menuItems = getSteps(min, max, step).map((item, key) => <MenuItem key={key} value={item}>{item}</MenuItem>);
   const handleChange = (event: SelectChangeEvent<number>) => {
-    dispatch(setAmountValue(event.target.value));
+    dispatch(action(event.target.value));
   }
 
   const newValue = useSelector((state: any) => state[name].value);

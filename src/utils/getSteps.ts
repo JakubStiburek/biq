@@ -4,8 +4,7 @@ const getSteps = (min: number, max: number, step: number) => {
     array.push(step * i)
   }
   array.push(max);
-  array.splice(0, 1);
-  array[0] = min;
+  array.splice(0, array.findIndex(item => item === min));
   return array;
 }
 

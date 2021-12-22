@@ -4,4 +4,5 @@ export interface valueProps {
   max: number;
   step: number;
   name: string;
+  action: Function;
 }

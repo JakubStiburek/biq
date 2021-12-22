@@ -1,16 +1,15 @@
 import { Slider } from "@mui/material";
 import { valueProps } from "../interfaces/valueProps";
 import React, { SyntheticEvent, useEffect, useState } from "react";
-import { setAmountValue } from "../redux/amountSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const SliderValue: React.FC<valueProps> = ({ defaultValue, min, max, step, name }) => {
+const SliderValue: React.FC<valueProps> = ({ defaultValue, min, max, step, name , action}) => {
   const dispatch = useDispatch();
 
   const [value, setValue] = useState(defaultValue)
 
   const handleChangeCommitted = (event: Event | SyntheticEvent<Element, Event>, value: number | number[]) => {
-    dispatch(setAmountValue(value));
+    dispatch(action(value));
   }
 
   const handleChange = (event: any) => {
