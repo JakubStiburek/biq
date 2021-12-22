@@ -1,6 +1,6 @@
 import React from 'react';
 import { Center, VStack } from "@chakra-ui/react";
-import Controls from "./components/Controls";
+import Calculator from "./components/Calculator";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -13,7 +13,7 @@ function App() {
       <Provider store={store}>
         <Center>
           <VStack>
-            <Controls/>
+            <Calculator/>
           </VStack>
         </Center>
       </Provider>

@@ -1,9 +1,10 @@
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { useQuery } from "react-query";
 import { baseUrl, endpoints } from "../urls";
 import { Heading, Text, VStack } from "@chakra-ui/react";
 import ResultItem from "./ResultItem";
 import { useSelector } from "react-redux";
+import { keys, map, values } from "remeda";
 
 interface Props {
   defaultAmount: number;
@@ -23,22 +24,29 @@ const Result = ({defaultAmount, defaultTerm}: Props) => {
   );
 
   if (isLoading) {
-    return <Text>Loading...</Text>
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="333.25px"
+      >
+        <CircularProgress />
+      </Box>
+    )
   }
 
   if (error) {
     return <Text>Error</Text>
   }
 
+  const resultItems = map.indexed(values(data),(item: string, key) => <ResultItem key={key} heading={keys(data)[key]} value={item} />)
+
   return (
     <Box>
+      <Heading>Your loan</Heading>
       <VStack>
-        <Heading>Your loan</Heading>
-        <ResultItem heading="Monthly payment" value={data.monthlyPayment} />
-        <ResultItem heading="Term" value={data.term} />
-        <ResultItem heading="Total cost of credit" value={data.totalCostOfCredit} />
-        <ResultItem heading="Total principal" value={data.totalPrincipal} />
-        <ResultItem heading="Total repayable amount" value={data.totalRepayableAmount} />
+        {resultItems}
       </VStack>
     </Box>
   )

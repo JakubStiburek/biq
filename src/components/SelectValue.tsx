@@ -3,6 +3,7 @@ import React from "react";
 import getSteps from "../utils/getSteps";
 import { useDispatch, useSelector } from "react-redux"
 import { valueProps } from "../interfaces/valueProps";
+import capitalize from "../utils/capitalize";
 
 const SelectValue: React.FC<valueProps> = ({defaultValue, min, max, step, name, action}) => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const SelectValue: React.FC<valueProps> = ({defaultValue, min, max, step, name, 
 
   return (
     <FormControl fullWidth>
-      <InputLabel id="amount">Amount</InputLabel>
+      <InputLabel id="amount">{capitalize(name)}</InputLabel>
       <Select
         labelId="amountLabel"
         id="amountSelect"

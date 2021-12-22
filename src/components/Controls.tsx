@@ -1,49 +1,17 @@
 import { Box } from "@mui/material";
+import React from "react";
+import { valueProps } from "../interfaces/valueProps";
 import SelectValue from "./SelectValue";
 import SliderValue from "./SliderValue";
-import { Heading, Text } from "@chakra-ui/react";
-import { setAmountValue } from "../redux/amountSlice";
-import { setTermValue } from "../redux/termSlice";
-import { useQuery } from "react-query";
-import { baseUrl, endpoints } from "../urls";
-import Result from "./Result";
-import React from "react";
+import { Heading } from "@chakra-ui/react";
+import capitalize from "../utils/capitalize";
 
-const Controls = () => {
-  const { isLoading, error, data } = useQuery("constrains", () =>
-    fetch(
-      `${baseUrl}${endpoints.constraints}`
-    ).then((res) => res.json())
-  );
-
-  if (isLoading) {
-    return <Text>Loading...</Text>
-  }
-
-  if (error) {
-    return <Text>Error</Text>
-  }
-
-  const { amountInterval, termInterval } = data;
-
+const Controls: React.FC<valueProps> = (props) => {
   return (
-    <Box
-      sx={{
-        width: 300,
-        height: 'max-content',
-        marginTop: 10
-      }}>
-      <Heading>Amount</Heading>
-      <SelectValue defaultValue={amountInterval.defaultValue} min={amountInterval.min} max={amountInterval.max}
-                   step={amountInterval.step} name="amount" action={setAmountValue}/>
-      <SliderValue defaultValue={amountInterval.defaultValue} min={amountInterval.min} max={amountInterval.max}
-                   step={amountInterval.step} name="amount" action={setAmountValue}/>
-      <Heading>Term</Heading>
-      <SelectValue defaultValue={termInterval.defaultValue} min={termInterval.min} max={termInterval.max}
-                   step={termInterval.step} name="term" action={setTermValue}/>
-      <SliderValue defaultValue={termInterval.defaultValue} min={termInterval.min} max={termInterval.max}
-                   step={termInterval.step} name="term" action={setTermValue}/>
-      <Result defaultAmount={amountInterval.defaultValue} defaultTerm={termInterval.defaultValue}/>
+    <Box>
+      <Heading>{capitalize(props.name)}</Heading>
+      <SelectValue {...props} />
+      <SliderValue {...props} />
     </Box>
   )
 };
