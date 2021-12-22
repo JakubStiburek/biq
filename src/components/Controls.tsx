@@ -43,7 +43,7 @@ const Controls = () => {
                    step={termInterval.step} name="term" action={setTermValue}/>
       <SliderValue defaultValue={termInterval.defaultValue} min={termInterval.min} max={termInterval.max}
                    step={termInterval.step} name="term" action={setTermValue}/>
-      <Result/>
+      <Result defaultAmount={amountInterval.defaultValue} defaultTerm={termInterval.defaultValue}/>
     </Box>
   )
 };

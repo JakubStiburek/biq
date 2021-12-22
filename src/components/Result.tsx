@@ -5,12 +5,18 @@ import { Heading, Text, VStack } from "@chakra-ui/react";
 import ResultItem from "./ResultItem";
 import { useSelector } from "react-redux";
 
+interface Props {
+  defaultAmount: number;
+  defaultTerm: number;
+}
 
-const Result = () => {
-  const amount = useSelector((state: any) => state.amount.value)
-  const term = useSelector((state: any) => state.term.value)
+const Result = ({defaultAmount, defaultTerm}: Props) => {
+  const newAmount = useSelector((state: any) => state.amount.value);
+  const amount = newAmount === 0 ? defaultAmount : newAmount;
+  const newTerm = useSelector((state: any) => state.term.value)
+  const term = newTerm === 0 ? defaultTerm : newTerm;
 
-  const {isLoading, error, data} = useQuery("result", () =>
+  const {isLoading, error, data} = useQuery(`result${term}${amount}`, () =>
     fetch(
       `${baseUrl}${endpoints.realLoan}?amount=${amount}&term=${term}`
     ).then((res) => res.json())
